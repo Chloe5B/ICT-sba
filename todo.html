@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>待辦事項</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            padding: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        .todo-list {
+            margin-top: 20px;
+        }
+        .todo-item {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+        .add-todo {
+            display: flex;
+            margin-top: 20px;
+        }
+        .add-todo input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        .add-todo button {
+            padding: 10px;
+            background-color: #add8e6;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .add-todo button:hover {
+            background-color: #b0e0e6;
+        }
+    </style>
+</head>
+<body>
+    <h2>待辦事項列表</h2>
+    <div class="todo-list" id="todoList"></div>
+
+    <div class="add-todo">
+        <input type="text" id="newTodo" placeholder="添加新的待辦事項" />
+        <button onclick="addTodo()">添加</button>
+    </div>
+
+    <script>
+        const todoList = document.getElementById('todoList');
+
+        // 添加待辦事項
+        function addTodo() {
+            const newTodoInput = document.getElementById('newTodo');
+            const todoText = newTodoInput.value.trim();
+            if (todoText) {
+                const todoItem = document.createElement('div');
+                todoItem.className = 'todo-item';
+                todoItem.textContent = todoText;
+                todoList.appendChild(todoItem);
+                newTodoInput.value = ''; // 清空輸入框
+            }
+        }
+    </script>
+</body>
+</html>
