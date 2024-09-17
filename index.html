@@ -82,10 +82,12 @@
         if (result.success) {
           messageDiv.style.color = 'green';
           messageDiv.textContent = result.message;
-        } else {
-          messageDiv.style.color = 'red';
-          messageDiv.textContent = '提交失敗！';
-        }
+        // 跳轉到待辦事項頁面
+        window.location.href = 'page2.html';
+            } else {
+                messageDiv.style.color = 'red';
+                messageDiv.textContent = result.message;
+            }
       }
     </script>
   </body>
