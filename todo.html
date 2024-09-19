@@ -59,15 +59,45 @@
         const todoList = document.getElementById('todoList');
 
         // 添加待辦事項
-        function addTodo() {
+        async function addTodo() {
             const newTodoInput = document.getElementById('newTodo');
             const todoText = newTodoInput.value.trim();
             if (todoText) {
                 const todoItem = document.createElement('div');
                 todoItem.className = 'todo-item';
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.onclick = function () {
+                    // 標記為已完成或未完成
+                    todoItem.classList.toggle('completed', checkbox.checked);
+                };
                 todoItem.textContent = todoText;
+                const todoTextElement = document.createElement('span');
+                todoTextElement.textContent = todoText;
+
+                // 將複選框和文本添加到待辦項目中
+                todoItem.appendChild(checkbox);
                 todoList.appendChild(todoItem);
                 newTodoInput.value = ''; // 清空輸入框
+                await sendTodoToServer(todoText);
+
+                newTodoInput.value = ''; // 清空輸入框
+            }
+        }
+
+        // 將待辦事項發送到 Google Apps Script
+        async function sendTodoToServer(todoText) {
+            const response = await fetch('https://script.google.com/macros/s/AKfycby191tXM17r8EeAxJGrSic10NVWp-BiLas4DcBsH15iy1bauMGs-iM1xrkEPgsFSLjlJw/execL', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `todo=${encodeURIComponent(todoText)}`
+            });
+
+            const result = await response.json();
+            if (!result.success) {
+                console.error('Failed to save todo:', result.message);
             }
         }
     </script>
