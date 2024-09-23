@@ -82,12 +82,24 @@
                 await sendTodoToServer(todoText);
 
                 newTodoInput.value = ''; // 清空輸入框
-            }
+            }const editButton = document.createElement('button');
+    editButton.textContent = '編輯';
+    editButton.onclick = function () {
+        const updatedText = prompt("請編輯待辦事項", todoText);
+        if (updatedText) {
+            todoTextElement.textContent = updatedText; 
         }
+    };
 
+            const deleteButton = document.createElement('button');
+    deleteButton.textContent = '刪除';
+    deleteButton.onclick = function () {
+        todoList.removeChild(todoItem);
+        }
+    }
         // 將待辦事項發送到 Google Apps Script
         async function sendTodoToServer(todoText) {
-            const response = await fetch('https://script.google.com/macros/s/AKfycby191tXM17r8EeAxJGrSic10NVWp-BiLas4DcBsH15iy1bauMGs-iM1xrkEPgsFSLjlJw/execL', {
+            const response = await fetch('https://script.google.com/macros/s/AKfycby191tXM17r8EeAxJGrSic10NVWp-BiLas4DcBsH15iy1bauMGs-iM1xrkEPgsFSLjlJw/exec', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
